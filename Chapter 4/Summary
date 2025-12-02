@@ -1,0 +1,24 @@
+**Melatih Model**
+1. Regresi Linier (Linear Regression) Bab ini dimulai dengan melihat dua cara berbeda untuk melatih model regresi linier (menemukan parameter/bobot yang meminimalkan kesalahan):
+
+- Persamaan Normal (The Normal Equation): Persamaan matematika bentuk tertutup (closed-form) yang langsung menghitung nilai parameter optimal. Metode ini cepat untuk dataset kecil tetapi sangat lambat secara komputasi jika jumlah fitur sangat besar.
+- Gradient Descent: Pendekatan optimasi iteratif untuk menemukan solusi optimal dengan mengubah parameter sedikit demi sedikit untuk meminimalkan fungsi biaya (cost function).
+2. Gradient Descent (GD) 
+Varian utama Gradient Descent:
+
+- Batch Gradient Descent: Menggunakan seluruh data pelatihan pada setiap langkah untuk menghitung gradien. Ini sangat lambat untuk dataset besar tetapi skalanya baik dengan jumlah fitur.
+- Stochastic Gradient Descent (SGD): Memilih satu instans secara acak pada setiap langkah dan menghitung gradien hanya berdasarkan instans tersebut. Ini jauh lebih cepat tetapi hasilnya kurang stabil (memantul di sekitar optimum).
+- Mini-batch Gradient Descent: Mengambil jalan tengah dengan menghitung gradien pada set acak kecil (mini-batches). Ini memberikan keseimbangan antara kecepatan SGD dan stabilitas Batch GD.
+3. Regresi Polinomial (Polynomial Regression)
+Jika data lebih kompleks daripada garis lurus, Anda masih bisa menggunakan model linier. Caranya adalah dengan menambahkan pangkat dari setiap fitur sebagai fitur baru (misalnya, menambahkan $x^2$ atau $x^3$), lalu melatih model linier pada kumpulan fitur yang diperluas ini5.
+
+4. Kurva Pembelajaran (Learning Curves) Bagaimana cara mengetahui apakah model Anda overfitting atau underfitting? Selain validasi silang (cross-validation), Anda bisa melihat Learning Curves. Kurva ini memplot kinerja model pada training set dan validation set sebagai fungsi dari ukuran training set.
+
+- Underfitting: Kedua kurva (training & validation) mendatar dan berdekatan, tetapi kesalahannya tinggi.
+- Overfitting: Ada celah (gap) yang signifikan antara kurva training (kesalahan rendah) dan kurva validation (kesalahan lebih tinggi).
+5. Model Linier Ter-regularisasi (Regularized Linear Models)Untuk mengurangi overfitting, kita membatasi (me-regularisasi) model dengan menambahkan istilah penalti ke fungsi biaya selama pelatihan;
+- Ridge Regression ($l_2$ regularization): Menjaga bobot model agar tetap kecil.
+- Lasso Regression ($l_1$ regularization): Cenderung membuat bobot fitur yang tidak penting menjadi nol (menghasilkan sparse model), sehingga juga berfungsi sebagai seleksi fitur otomatis9.
+- Elastic Net: Jalan tengah antara Ridge dan Lasso.
+- Early Stopping: Cara regularisasi yang sangat berbeda, yaitu menghentikan pelatihan segera setelah kesalahan validasi mencapai minimum.
+5. Softmax Regression Generalisasi dari Regresi Logistik untuk mendukung klasifikasi multi-kelas secara langsung (tanpa perlu melatih banyak klasifikasi biner). Model ini menghitung skor untuk setiap kelas, lalu menerapkan fungsi softmax untuk mendapatkan probabilitas setiap kelas.
