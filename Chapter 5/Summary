@@ -1,0 +1,32 @@
+
+Support Vector Machines (SVM)
+1. Klasifikasi SVM LinierIde dasar di balik SVM dapat dijelaskan dengan gambar: bayangkan mencoba memisahkan dua kelas data dengan garis lurus.
+
+- Large Margin Classification: Alih-alih hanya menggambar garis sembarang yang memisahkan kelas, SVM mencoba menyesuaikan "jalan" selebar mungkin di antara kelas-kelas tersebut. Garis keputusan berada di tengah jalan ini2.
+- Support Vector: Batas jalan sepenuhnya ditentukan oleh instance yang terletak di tepi jalan. Instance-instance ini disebut support vectors. Menambahkan lebih banyak data pelatihan di luar jalan tidak akan memengaruhi batas keputusan sama sekali.
+
+2. Soft Margin vs. Hard Margin Classification
+
+- Hard Margin Classification: Memaksa semua instance berada di luar jalan dan di sisi yang benar. Ini hanya berfungsi jika data dapat dipisahkan secara linier dan sangat sensitif terhadap outlier
+- Soft Margin Classification: Menemukan keseimbangan yang baik antara menjaga jalan tetap lebar dan membatasi pelanggaran margin (margin violations—instance yang berada di tengah jalan atau di sisi yang salah).
+- Hyperparameter C: Dalam Scikit-Learn, keseimbangan ini dikontrol oleh hyperparameter C. Nilai C yang rendah menghasilkan jalan yang lebih lebar tetapi lebih banyak pelanggaran margin (lebih banyak bias, lebih sedikit varians). Nilai C yang tinggi membuat jalan lebih sempit dengan sedikit pelanggaran (risiko overfitting).
+
+3. Klasifikasi SVM Non-LinierBanyak dataset tidak dapat dipisahkan secara linier.
+
+- Menambahkan Fitur: Salah satu cara menangani data non-linier adalah dengan menambahkan lebih banyak fitur, seperti fitur polinomial (misalnya, menambahkan $x^2$ atau $x^3$). Ini dapat membuat data yang tadinya tidak terpisah secara linier menjadi terpisah di ruang dimensi yang lebih tinggi.
+- Kernel Trick: Menambahkan fitur polinomial secara komputasi bisa menjadi mahal. SVM menggunakan teknik matematika yang disebut kernel trick. Ini memungkinkan model mendapatkan hasil yang sama seolah-olah Anda menambahkan banyak fitur polinomial, tanpa benar-benar menambahkannya, sehingga menghindari ledakan jumlah fitur.
+
+4. Gaussian RBF 
+- KernelTeknik lain untuk mengatasi masalah non-linier adalah menambahkan fitur yang dihitung menggunakan fungsi kesamaan (similarity function), yang mengukur seberapa mirip setiap instance dengan "landmark" tertentu.
+- Gaussian Radial Basis Function (RBF): Fungsi berbentuk lonceng yang nilainya bervariasi dari 0 (sangat jauh dari landmark) hingga 1 (tepat di landmark).
+- Hyperparameter Gamma ($\gamma$): Mengontrol lebar lonceng RBF. $\gamma$ yang tinggi membuat lonceng lebih sempit (keputusan lebih tidak teratur/wiggly, risiko overfitting). $\gamma$ yang rendah membuat lonceng lebih lebar (batas keputusan lebih halus)
+
+5. Regresi SVMSVM juga bisa digunakan untuk regresi. Triknya adalah membalikkan tujuan klasifikasi:
+
+- Alih-alih mencoba menyesuaikan jalan selebar mungkin di antara dua kelas, Regresi SVM mencoba menyesuaikan sebanyak mungkin instance ke dalam jalan sambil membatasi pelanggaran margin (instance yang berada di luar jalan).
+- Lebar jalan dikontrol oleh hyperparameter $\epsilon$ (epsilon).
+
+6. Di Balik Layar (Under the Hood)Bab ini juga menjelaskan cara kerja matematis SVM, termasuk:
+- Fungsi Keputusan: Prediksi kelas dilakukan berdasarkan tanda dari fungsi $w^T x + b$.
+- Quadratic Programming (QP): Masalah optimasi SVM (baik hard maupun soft margin) adalah masalah optimasi kuadratik cembung dengan kendala linier.
+- Masalah Dual (The Dual Problem): SVM dapat diselesaikan dengan masalah primal atau dual. Masalah dual memungkinkan penggunaan kernel trick, yang membuat SVM sangat kuat untuk dataset berdimensi tinggi atau non-linier.
