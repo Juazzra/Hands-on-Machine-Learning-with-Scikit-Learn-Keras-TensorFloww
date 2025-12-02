@@ -1,0 +1,39 @@
+**Klasifikasi**
+1. Dataset MNIST Bab ini menggunakan dataset MNIST, yang terdiri dari 70.000 gambar kecil digit tulisan tangan yang diberi label. Dataset ini sering disebut sebagai "Hello World" dalam Machine Learning.
+
+2. Melatih Klasifikasi Biner (Binary Classifier)
+
+- Masalah disederhanakan terlebih dahulu menjadi klasifikasi biner, misalnya "5-detector" (membedakan antara angka 5 dan bukan 5).
+- Algoritma Stochastic Gradient Descent (SGD) digunakan sebagai contoh awal karena efisiensinya dalam menangani dataset besar.
+
+3. Pengukuran Kinerja (Performance Measures) Mengevaluasi classifier lebih rumit daripada regresi, sehingga bab ini membahas banyak metrik:
+
+- Akurasi (Accuracy): Mengukur rasio prediksi yang benar. Namun, akurasi bukanlah metrik yang baik untuk skewed datasets (dataset yang tidak seimbang), di mana satu kelas jauh lebih sering muncul daripada yang lain.
+- Confusion Matrix: Cara yang lebih baik untuk mengevaluasi kinerja adalah dengan menghitung berapa kali instance kelas A diklasifikasikan sebagai kelas B. Matriks ini membagi hasil menjadi:
+  - True Negatives (TN)
+  - False Positives (FP)
+  - False Negatives (FN)
+  - True Positives (TP).
+
+- Precision dan Recall:
+  - Precision: Akurasi dari prediksi positif (berapa persen yang benar-benar positif dari semua yang diprediksi positif).
+  - Recall (Sensitivity): Rasio instance positif yang terdeteksi dengan benar oleh classifier.
+- F1 Score: Rata-rata harmonik dari precision dan recall. F1 Score akan tinggi hanya jika kedua metrik tersebut tinggi.
+- Precision/Recall Trade-off: Meningkatkan precision akan menurunkan recall, dan sebaliknya. Anda tidak bisa mendapatkan keduanya secara sempurna sekaligus.
+- ROC Curve (Receiver Operating Characteristic): Kurva yang memplot True Positive Rate (Recall) melawan False Positive Rate. Classifier yang baik akan menjauhi garis diagonal acak.
+- AUC (Area Under Curve): Cara membandingkan classifier; classifier sempurna memiliki ROC AUC = 1, sedangkan classifier acak memiliki nilai 0.5.
+
+4. Klasifikasi Multikelas (Multiclass Classification)
+
+- Definisi: Membedakan lebih dari dua kelas (misalnya digit 0 hingga 9).
+- Algoritma: Beberapa algoritma (seperti SGD, Random Forest, Naive Bayes) dapat menangani banyak kelas secara langsung. Lainnya (seperti SVM, Logistic Regression) bersifat biner.
+- Strategi untuk Algoritma Biner:
+  - One-versus-the-Rest (OvR): Melatih 10 classifier biner (satu untuk setiap digit) dan memilih skor tertinggi.
+  - One-versus-One (OvO): Melatih classifier biner untuk setiap pasangan digit (misalnya 0 vs 1, 0 vs 2, dst). Untuk N kelas, dibutuhkan N × (N – 1) / 2 classifier.
+- Scikit-Learn secara otomatis mendeteksi dan memilih strategi yang sesuai (biasanya OvR, kecuali untuk SVM yang menggunakan OvO karena skalabilitas).
+
+5. Analisis Kesalahan (Error Analysis) Setelah model dilatih, langkah selanjutnya adalah menganalisis jenis kesalahan yang dibuatnya dengan melihat confusion matrix. Visualisasi matriks ini dapat memberikan wawasan untuk meningkatkan model, misalnya dengan menambahkan data pelatihan untuk digit yang sering salah dikenali atau melakukan pra-pemrosesan gambar.
+
+6. Klasifikasi Multilabel (Multilabel Classification) Sistem yang mengeluarkan beberapa tag biner untuk satu instance. Contohnya, dalam pengenalan wajah, jika ada Alice dan Bob di foto yang sama, classifier harus mengeluarkan output [1, 0, 1] (Alice: Yes, Bob: No, Charlie: Yes).
+
+7. Klasifikasi Multioutput (Multioutput Classification) Generalisasi dari klasifikasi multilabel di mana setiap label dapat memiliki lebih dari dua kelas. Contoh yang diberikan adalah sistem yang menghilangkan noise dari gambar; inputnya adalah gambar bernoise, outputnya adalah gambar bersih (array intensitas piksel), di mana setiap piksel adalah label dengan nilai 0 hingga 255.
